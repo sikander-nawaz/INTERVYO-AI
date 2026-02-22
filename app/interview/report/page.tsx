@@ -3,6 +3,7 @@
 import { useInterviewStore } from "@/store/interviewStore";
 import { Card, CardContent } from "@/components/ui/card";
 import ScoreRadar from "@/components/RadarChart";
+import Navbar from "@/components/Navbar";
 
 export default function ReportPage() {
   const results = useInterviewStore((s) => s.results);
@@ -30,40 +31,46 @@ export default function ReportPage() {
   );
 
   return (
-    <div className="min-h-screen p-10 space-y-8">
-      <h1 className="text-3xl font-bold text-center">Interview Report</h1>
+    <div>
+      <div>
+        <Navbar />
+      </div>
 
-      {/* OVERALL SCORE */}
-      <Card>
-        <CardContent className="p-6 text-center space-y-2">
-          <h2 className="text-xl font-semibold">Overall Score</h2>
-          <p className="text-4xl font-bold">{overallScore}/10</p>
-        </CardContent>
-      </Card>
+      <div className="min-h-screen p-10 space-y-8">
+        <h1 className="text-3xl font-bold text-center">Interview Report</h1>
 
-      {/* RADAR CHART */}
-      <Card>
-        <CardContent className="p-6">
-          <ScoreRadar
-            clarity={avgClarity}
-            star={avgStar}
-            fillers={avgFillers}
-          />
-        </CardContent>
-      </Card>
+        {/* OVERALL SCORE */}
+        <Card>
+          <CardContent className="p-6 text-center space-y-2">
+            <h2 className="text-xl font-semibold">Overall Score</h2>
+            <p className="text-4xl font-bold">{overallScore}/10</p>
+          </CardContent>
+        </Card>
 
-      {/* QUESTION RESULTS */}
-      <div className="grid gap-4">
-        {results.map((r, i) => (
-          <Card key={i}>
-            <CardContent className="p-4">
-              <p>Question {i + 1}</p>
-              <p>Clarity: {r.clarity}</p>
-              <p>STAR Score: {r.star_score}</p>
-              <p>Filler Words: {r.filler_count}</p>
-            </CardContent>
-          </Card>
-        ))}
+        {/* RADAR CHART */}
+        <Card>
+          <CardContent className="p-6">
+            <ScoreRadar
+              clarity={avgClarity}
+              star={avgStar}
+              fillers={avgFillers}
+            />
+          </CardContent>
+        </Card>
+
+        {/* QUESTION RESULTS */}
+        <div className="grid gap-4">
+          {results.map((r, i) => (
+            <Card key={i}>
+              <CardContent className="p-4">
+                <p>Question {i + 1}</p>
+                <p>Clarity: {r.clarity}</p>
+                <p>STAR Score: {r.star_score}</p>
+                <p>Filler Words: {r.filler_count}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );
