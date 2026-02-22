@@ -19,18 +19,20 @@ export default function SetupPage() {
     try {
       setLoading(true);
 
-      const data = await startInterview(role, level);
-      // const data = {
-      //   questions: [
-      //     "Tell me about yourself",
-      //     "Explain React hooks",
-      //     "Describe a challenge you solved",
-      //   ],
-      // };    testing phase of check recording is working properly or not.
+      // const data = await startInterview(role, level);  // for backend
+
+      const data = {
+        questions: [
+          "Tell me about yourself",
+          "Explain React hooks",
+          "Describe a challenge you solved",
+        ],
+      }; // testing phase of check recording is working properly or not.
 
       setQuestions(data.questions);
 
       router.push("/interview/session");
+      // router.push("/interview/report");
     } catch (error) {
       alert("Backend not connected yet.");
       console.error(error);
