@@ -20,7 +20,12 @@ type InterviewState = {
 export const useInterviewStore = create<InterviewState>((set) => ({
   questions: [],
   currentIndex: 0,
-  results: [],
+  results: [
+    { clarity: 8, star_score: 7, filler_count: 3 },
+    { clarity: 7, star_score: 8, filler_count: 2 },
+  ], // dummy data for testing
+
+  // results: [],  for backend
 
   setQuestions: (questions) =>
     set({
