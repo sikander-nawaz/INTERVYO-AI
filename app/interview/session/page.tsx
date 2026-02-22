@@ -7,6 +7,7 @@ import { useRecorder } from "@/hooks/useRecorder";
 import { analyzeAnswer } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Navbar from "@/components/Navbar";
 
 export default function SessionPage() {
   const router = useRouter();
@@ -61,70 +62,78 @@ export default function SessionPage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-6">
-      <p className="text-sm text-muted-foreground">
-        Question {currentIndex + 1} / {questions.length}
-      </p>
-      <h2 className="text-xl font-semibold text-center max-w-xl">{question}</h2>
-
-      {/* live filler words counter */}
-      <p className="text-sm text-red-500">Filler Words Used: {fillerCount}</p>
-      <RecordingIndicator recording={recording} />
-
-      {/* live animation which detects the clerity, STAR and confidence */}
-      <div className="space-y-2">
-        <div>
-          <p className="text-sm">Clarity</p>
-          <div className="h-2 bg-gray-200 rounded">
-            <div
-              className="h-2 bg-green-500 rounded animate-pulse"
-              style={{
-                width: recording ? `${Math.random() * 80 + 10}%` : "0%",
-              }}
-            />
-          </div>
-        </div>
-
-        <div>
-          <p className="text-sm">STAR Score</p>
-          <div className="h-2 bg-gray-200 rounded">
-            <div
-              className="h-2 bg-blue-500 rounded animate-pulse"
-              style={{
-                width: recording ? `${Math.random() * 80 + 10}%` : "0%",
-              }}
-            />
-          </div>
-        </div>
-
-        <div>
-          <p className="text-sm">Confidence</p>
-          <div className="h-2 bg-gray-200 rounded">
-            <div
-              className="h-2 bg-purple-500 rounded animate-pulse"
-              style={{
-                width: recording ? `${Math.random() * 80 + 10}%` : "0%",
-              }}
-            />
-          </div>
-        </div>
+    <div>
+      <div>
+        <Navbar />
       </div>
 
-      <div>
-        {loading ? (
-          <div className="animate-pulse text-center">
-            <p className="text-lg font-medium">
-              AI is analyzing your answer...
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Evaluating clarity, structure & confidence
-            </p>
+      <div className="flex flex-col items-center justify-center h-screen gap-6">
+        <p className="text-sm text-muted-foreground">
+          Question {currentIndex + 1} / {questions.length}
+        </p>
+        <h2 className="text-xl font-semibold text-center max-w-xl">
+          {question}
+        </h2>
+
+        {/* live filler words counter */}
+        <p className="text-sm text-red-500">Filler Words Used: {fillerCount}</p>
+        <RecordingIndicator recording={recording} />
+
+        {/* live animation which detects the clerity, STAR and confidence */}
+        <div className="space-y-2">
+          <div>
+            <p className="text-sm">Clarity</p>
+            <div className="h-2 bg-gray-200 rounded">
+              <div
+                className="h-2 bg-green-500 rounded animate-pulse"
+                style={{
+                  width: recording ? `${Math.random() * 80 + 10}%` : "0%",
+                }}
+              />
+            </div>
           </div>
-        ) : (
-          <Button onClick={handleRecord}>
-            {recording ? "Stop Answer" : "Start Answer"}
-          </Button>
-        )}
+
+          <div>
+            <p className="text-sm">STAR Score</p>
+            <div className="h-2 bg-gray-200 rounded">
+              <div
+                className="h-2 bg-blue-500 rounded animate-pulse"
+                style={{
+                  width: recording ? `${Math.random() * 80 + 10}%` : "0%",
+                }}
+              />
+            </div>
+          </div>
+
+          <div>
+            <p className="text-sm">Confidence</p>
+            <div className="h-2 bg-gray-200 rounded">
+              <div
+                className="h-2 bg-purple-500 rounded animate-pulse"
+                style={{
+                  width: recording ? `${Math.random() * 80 + 10}%` : "0%",
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div>
+          {loading ? (
+            <div className="animate-pulse text-center">
+              <p className="text-lg font-medium">
+                AI is analyzing your answer...
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Evaluating clarity, structure & confidence
+              </p>
+            </div>
+          ) : (
+            <Button onClick={handleRecord}>
+              {recording ? "Stop Answer" : "Start Answer"}
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );
