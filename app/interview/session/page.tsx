@@ -14,7 +14,10 @@ export default function SessionPage() {
   const { questions, currentIndex, nextQuestion, addResult } =
     useInterviewStore();
 
-  const { recording, startRecording, stopRecording } = useRecorder();
+  // const { recording, startRecording, stopRecording } = useRecorder();
+
+  const { recording, startRecording, stopRecording, fillerCount } =
+    useRecorder();
 
   const [loading, setLoading] = useState(false);
 
@@ -63,7 +66,49 @@ export default function SessionPage() {
         Question {currentIndex + 1} / {questions.length}
       </p>
       <h2 className="text-xl font-semibold text-center max-w-xl">{question}</h2>
+
+      {/* live filler words counter */}
+      <p className="text-sm text-red-500">Filler Words Used: {fillerCount}</p>
       <RecordingIndicator recording={recording} />
+
+      {/* live animation which detects the clerity, STAR and confidence */}
+      <div className="space-y-2">
+        <div>
+          <p className="text-sm">Clarity</p>
+          <div className="h-2 bg-gray-200 rounded">
+            <div
+              className="h-2 bg-green-500 rounded animate-pulse"
+              style={{
+                width: recording ? `${Math.random() * 80 + 10}%` : "0%",
+              }}
+            />
+          </div>
+        </div>
+
+        <div>
+          <p className="text-sm">STAR Score</p>
+          <div className="h-2 bg-gray-200 rounded">
+            <div
+              className="h-2 bg-blue-500 rounded animate-pulse"
+              style={{
+                width: recording ? `${Math.random() * 80 + 10}%` : "0%",
+              }}
+            />
+          </div>
+        </div>
+
+        <div>
+          <p className="text-sm">Confidence</p>
+          <div className="h-2 bg-gray-200 rounded">
+            <div
+              className="h-2 bg-purple-500 rounded animate-pulse"
+              style={{
+                width: recording ? `${Math.random() * 80 + 10}%` : "0%",
+              }}
+            />
+          </div>
+        </div>
+      </div>
 
       <div>
         {loading ? (
