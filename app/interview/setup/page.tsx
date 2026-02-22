@@ -20,6 +20,13 @@ export default function SetupPage() {
       setLoading(true);
 
       const data = await startInterview(role, level);
+      // const data = {
+      //   questions: [
+      //     "Tell me about yourself",
+      //     "Explain React hooks",
+      //     "Describe a challenge you solved",
+      //   ],
+      // };    testing phase of check recording is working properly or not.
 
       setQuestions(data.questions);
 
