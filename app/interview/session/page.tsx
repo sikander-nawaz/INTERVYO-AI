@@ -1,5 +1,6 @@
 "use client";
 
+import RecordingIndicator from "@/components/RecordingIndicator";
 import { Button } from "@/components/ui/button";
 import { useInterviewStore } from "@/store/interviewStore";
 import { useRecorder } from "@/hooks/useRecorder";
@@ -58,11 +59,28 @@ export default function SessionPage() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-6">
+      <p className="text-sm text-muted-foreground">
+        Question {currentIndex + 1} / {questions.length}
+      </p>
       <h2 className="text-xl font-semibold text-center max-w-xl">{question}</h2>
+      <RecordingIndicator recording={recording} />
 
-      <Button onClick={handleRecord} disabled={loading}>
-        {loading ? "Analyzing..." : recording ? "Stop Answer" : "Start Answer"}
-      </Button>
+      <div>
+        {loading ? (
+          <div className="animate-pulse text-center">
+            <p className="text-lg font-medium">
+              AI is analyzing your answer...
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Evaluating clarity, structure & confidence
+            </p>
+          </div>
+        ) : (
+          <Button onClick={handleRecord}>
+            {recording ? "Stop Answer" : "Start Answer"}
+          </Button>
+        )}
+      </div>
     </div>
   );
 }
